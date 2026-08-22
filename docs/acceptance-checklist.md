@@ -4,12 +4,14 @@
 > 前置:DSH 已重啟(`dsh --profile web`)、瀏覽器已重新整理、本對話已恢復。
 > 執行方式:由使用者操作,代理逐項核銷並記錄結果。
 
-## 0. 載入鏈路(Phase 1)
+## 0. 載入鏈路(Phase 1)— ✅ 已於 rc.1 重啟後驗證
 
-- [ ] `curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:3080/plugins/dsh-message-edit/client.js` → **200**
-- [ ] `curl -s "http://127.0.0.1:3080/api/dsh-message-edit/state?sessionId=probe"` → **404** 且 body 為 `{"ok":false,"error":"unknown-session"}`(路由已掛載,僅 session 不存在)
-- [ ] 頁面 console 無插件相關錯誤;原生功能(送出訊息、工具、設定)無退化
-- [ ] `dsh --profile web --dump-config` 含 `# == dsh-message-edit` 層(已於安裝時驗證 ✓)
+- [x] `curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:3080/plugins/dsh-message-edit/client.js` → **200**
+- [x] `curl -s "http://127.0.0.1:3080/api/dsh-message-edit/state?sessionId=probe"` → **404** 且 body 為 `{"ok":false,"error":"unknown-session"}`(路由已掛載,僅 session 不存在)
+- [x] 真實 session 深測:`/state` 回 `{"ok":true,"pending":null,"ranges":[]}`(全日誌重放 + patch 掛載路徑實測通過)
+- [x] boot manifest 含本插件條目(inject 邊正確);`dsh --profile web --dump-config` 含 `# == dsh-message-edit` 層
+- [ ] 頁面 console 無插件相關錯誤;原生功能無退化 ← **待使用者確認**
+- [x] rc.1 相容性靜態複核:hook/invoked 已知類型、Session API、pre-step 先於 user/message append、agent/status 帶 agent、surface.nodes/replaceGeneration、chat.node user/steering、data-chat-flow-key、sessions.scope(id).conversation——全部不變,**零程式碼修改**
 
 ## 1. Undo(Phase 2;PRD 故事 9–18、21、22、25)
 
