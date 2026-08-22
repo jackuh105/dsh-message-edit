@@ -1,0 +1,7 @@
+# Bundle patch layer for dsh-message-edit: declares its own loader entry.
+# Mounted via `dsh plugin --profile <name> add <this-dir>` — the profile boot
+# merges this patch, inserting the host plugin row; the web client scan then
+# picks up dsh.client and serves lib/client.js.
+- insert:
+    - id: message-edit
+      name: dsh-message-edit
