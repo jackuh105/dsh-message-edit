@@ -89,7 +89,7 @@ test('factory survives a missing optional external with a degraded shim', () => 
   const { registered } = loadClientBundle()
   const brokenRequire = makeRequire()
   const exports = registered[0].factory((name) => {
-    if (name === '@deepseek-ai/dsh-client-ui-attachment') {
+    if (name === '@deepseek-ai/dsh-client-ui-primitives') {
       throw new Error('client-modules: require missed the module table (simulated drift)')
     }
     return brokenRequire(name)

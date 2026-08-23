@@ -20,8 +20,7 @@
       ],
       "external": [
         "react",
-        "@deepseek-ai/dsh-client-ui-primitives",
-        "@deepseek-ai/dsh-client-ui-attachment"
+        "@deepseek-ai/dsh-client-ui-primitives"
       ],
       "platform": "web"
     }
