@@ -13,7 +13,7 @@ Gemini 式的訊息編輯與 Undo,適用於 [DeepSeek Harness](https://github.co
 - 已封印的隱藏區間**跨頁面重新整理與 DSH 進程重啟**持續生效。
 - Agent 正在輸出時操作,自動打斷當前回合,半截輸出一併吞入隱藏範圍。
 
-> **rc.1 相容性注記**(DSH 0.1.1-rc.1):客戶端 `require` 為同步,依賴腳本送達順序由 `package.json` 的 `dsh.client.external` 邊約束——本套件已宣告。若外部模組日後漂移,插件降級渲染(警告見 console),不會阻塞 GUI 啟動;發送改走 `sessions.binding(id).session.prompt`(作用域 ctx 的 `.conversation` 屬性受 cordis inject 守衛限制,插件 fiber 不可達)。
+> **平台相容性**:rc.1/rc.2 的客戶端合約變更(同步 require 與 `external` 邊、inject 守衛、attachment 元件導出移除)詳見 [`docs/compatibility.md`](docs/compatibility.md)。
 
 ## 安裝 / 卸載
 
