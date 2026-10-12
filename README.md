@@ -13,7 +13,14 @@ Gemini 式的訊息編輯與 Undo,適用於 [DeepSeek Harness](https://github.co
 - 已封印的隱藏區間**跨頁面重新整理與 DSH 進程重啟**持續生效。
 - Agent 正在輸出時操作,自動打斷當前回合,半截輸出一併吞入隱藏範圍。
 
-> **平台相容性**:rc.1/rc.2 的客戶端合約變更(同步 require 與 `external` 邊、inject 守衛、attachment 元件導出移除)詳見 [`docs/compatibility.md`](docs/compatibility.md)。
+> **平台相容性**:各 DSH 版本的宿主/客戶端合約變更(0.2.0 的 Session 私有日誌與 `snapshotEvents()`、`useChat` 標準 hook、ui-primitives 導出更名;rc.1/rc.2 的同步 require 與 `external` 邊、inject 守衛等)詳見 [`docs/compatibility.md`](docs/compatibility.md)。
+
+## DSH 版本相容性
+
+| 外掛版本 | 相容 DSH |
+| --- | --- |
+| 0.2.x | ≥ 0.2.0-rc.2(peerDependencies 閘門) |
+| 0.1.x | 0.1.1-rc.x |
 
 ## 安裝 / 卸載
 
@@ -68,7 +75,7 @@ dsh plugin --profile web remove dsh-message-edit
 
 - `lib/core.js` — 純狀態機:意圖規劃(mark/cancel/undo/commit)、稽核事件折疊、重放重建、區間謂詞;零依賴零 I/O,`node --test "test/**/*.test.js"` 覆蓋。
 - `lib/index.js` — 主機半:HTTP API(`/api/dsh-message-edit/{mark,undo,cancel,state}`)、`deriveMessages()` 遮罩、打斷與封印時序(pre-step 瀑布 + agent/status 靜止封印 + 重啟重放對帳)。
-- `lib/client.js` — 客戶端半:priority `-1` 接管 `user`/`steering` 聊天節點渲染、內聯編輯器、CSS 隱藏、經 `sessions.scope(id).conversation.send()` 程式化發送(不碰 composer 草稿)。
+- `lib/client.js` — 客戶端半:priority `-1` 接管 `user`/`steering` 聊天節點渲染、內聯編輯器、CSS 隱藏、經 `sessions.binding(id).session.prompt()` 程式化發送(不碰 composer 草稿)。
 
 ## 致謝
 

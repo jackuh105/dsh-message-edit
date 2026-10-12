@@ -15,12 +15,23 @@ class FakeSession {
     this.id = id
     this.events = []
     this.firstLiveSeq = 0
-    this.surface = { nodes: [], replaceGeneration: 1 }
+    // 0.2.0 surface: contentGeneration is the deriveMessages cache counter
+    // (replaceGeneration only tracks positional replacements).
+    this.surface = { nodes: [], replaceGeneration: 1, contentGeneration: 1 }
     this.appendCount = 0
   }
 
   get seq() {
     return this.events.length
+  }
+
+  // 0.2.0: the public log property is gone; readers go through these.
+  snapshotEvents() {
+    return this.events
+  }
+
+  eventAt(seq) {
+    return this.events[seq]
   }
 
   append(type, data) {

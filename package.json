@@ -1,6 +1,6 @@
 {
   "name": "dsh-message-edit",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Gemini-style message edit & undo for DeepSeek Harness: edit a sent message in place or remove it outright; everything after it disappears from the chat view and the model context.",
   "type": "module",
   "main": "lib/index.js",
@@ -15,7 +15,7 @@
     },
     "client": {
       "inject": [
-        "@deepseek-ai/dsh-client-runtime",
+        "@deepseek-ai/dsh-client-ui-chat",
         "@deepseek-ai/dsh-client-ui-conversation"
       ],
       "external": [
@@ -24,6 +24,13 @@
       ],
       "platform": "web"
     }
+  },
+  "peerDependencies": {
+    "@deepseek-ai/dsh-agent": "^0.2.0-rc.2",
+    "@deepseek-ai/dsh-client-ui-chat": "^0.2.0-rc.2",
+    "@deepseek-ai/dsh-client-ui-conversation": "^0.2.0-rc.2",
+    "@deepseek-ai/dsh-client-ui-primitives": "^0.2.0-rc.2",
+    "@deepseek-ai/dsh-session": "^0.2.0-rc.2"
   },
   "engines": {
     "node": ">=20"
