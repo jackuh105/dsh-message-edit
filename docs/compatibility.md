@@ -2,6 +2,20 @@
 
 本插件以「陰影宿主行為」方式運作,對客戶端合約敏感。以下為實測踩到的版本差異與對應策略,供日後升級排查。
 
+## 0.2.1(實測 0.2.1-rc.2)
+
+### ui-primitives:npm 套件消失,client seed 存續
+
+`@deepseek-ai/dsh-client-ui-primitives` 整個套件從 runtime node_modules 移除,但**客戶端 seed module 仍以同名保留**在 web-frontend dist bundle 裡——`external` 宣告與同步 `require` 照常解析。宿主端相容性閘門對 runtime 不存在的 peer 套件**跳過檢查**(實測:本插件帶著 `dsh-client-ui-primitives: ^0.2.0-rc.2` peer 在 0.2.1-rc.2 下正常合成)。教訓:peer 對「客戶端 seed 綁定」只是文件性質,閘門不擋;真正的保險是 require 層 shim + 成員級 fallback。
+
+### projectUserText 移除 → UserTextRun
+
+seed 導出變動:`projectUserText` 消失,第一方 user 列改渲染 `<UserTextRun text={...} />`(可能為 forwardRef/memo 物件,存在性檢查用 truthy 而非 typeof)。`IconCheckOutlineRegular/Medium`、`Tooltip` 存續。renderUserText 鏈擴為 projectUserText → UserTextRun → MessageText → span,**單一 build 同時服務 0.2.0/0.2.1**;0.2.1 下 reference/skill chips 不渲染(UserTextRun 只收 text),純外觀降級。
+
+### 其餘綁定實測不變
+
+`eventAt/snapshotEvents/contentGeneration/hook-invoked`(host)、`agent/pre-step`、`keepInbox`、`tapIndex`、`useChat`、`conversation.chat.node`、`data-chat-flow-key`、`binding()`(client)全部存在;settings 視窗 CSS hash 仍為 `VOzbGW_*`。
+
 ## 0.2.0
 
 ### Host:Session.events 移除(日誌私有化)
