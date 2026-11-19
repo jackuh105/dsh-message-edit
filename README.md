@@ -19,6 +19,7 @@ Gemini 式的訊息編輯與 Undo,適用於 [DeepSeek Harness](https://github.co
 
 | 外掛版本 | 相容 DSH |
 | --- | --- |
+| 0.2.2 | 0.2.0-rc.2 ~ 0.2.2-rc.5(單一 build 多版本相容;含圖片訊息縮圖) |
 | 0.2.1 | 0.2.0-rc.2 ~ 0.2.1-rc.2(單一 build 雙向相容) |
 | 0.2.0 | ≥ 0.2.0-rc.2(peerDependencies 閘門) |
 | 0.1.x | 0.1.1-rc.x |
